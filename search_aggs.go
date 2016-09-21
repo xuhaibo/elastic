@@ -629,7 +629,9 @@ func (a *AggregationValueMetric) UnmarshalJSON(data []byte) error {
 		json.Unmarshal(*v, &a.Value)
 	}
 	if v, ok := aggs["meta"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Meta)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Meta)
 	}
 	a.Aggregations = aggs
 	return nil
@@ -671,7 +673,9 @@ func (a *AggregationStatsMetric) UnmarshalJSON(data []byte) error {
 		json.Unmarshal(*v, &a.Sum)
 	}
 	if v, ok := aggs["meta"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Meta)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Meta)
 	}
 	a.Aggregations = aggs
 	return nil
@@ -725,7 +729,9 @@ func (a *AggregationExtendedStatsMetric) UnmarshalJSON(data []byte) error {
 		json.Unmarshal(*v, &a.StdDeviation)
 	}
 	if v, ok := aggs["meta"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Meta)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Meta)
 	}
 	a.Aggregations = aggs
 	return nil
@@ -751,7 +757,9 @@ func (a *AggregationPercentilesMetric) UnmarshalJSON(data []byte) error {
 		json.Unmarshal(*v, &a.Values)
 	}
 	if v, ok := aggs["meta"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Meta)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Meta)
 	}
 	a.Aggregations = aggs
 	return nil
@@ -779,7 +787,9 @@ func (a *AggregationTopHitsMetric) UnmarshalJSON(data []byte) error {
 		json.Unmarshal(*v, &a.Hits)
 	}
 	if v, ok := aggs["meta"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Meta)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Meta)
 	}
 	return nil
 }
@@ -814,7 +824,9 @@ func (a *AggregationGeoBoundsMetric) UnmarshalJSON(data []byte) error {
 		json.Unmarshal(*v, &a.Bounds)
 	}
 	if v, ok := aggs["meta"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Meta)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Meta)
 	}
 	a.Aggregations = aggs
 	return nil
@@ -840,7 +852,9 @@ func (a *AggregationSingleBucket) UnmarshalJSON(data []byte) error {
 		json.Unmarshal(*v, &a.DocCount)
 	}
 	if v, ok := aggs["meta"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Meta)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Meta)
 	}
 	a.Aggregations = aggs
 	return nil
@@ -875,7 +889,9 @@ func (a *AggregationBucketRangeItems) UnmarshalJSON(data []byte) error {
 		json.Unmarshal(*v, &a.Buckets)
 	}
 	if v, ok := aggs["meta"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Meta)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Meta)
 	}
 	a.Aggregations = aggs
 	return nil
@@ -908,7 +924,9 @@ func (a *AggregationBucketKeyedRangeItems) UnmarshalJSON(data []byte) error {
 		json.Unmarshal(*v, &a.Buckets)
 	}
 	if v, ok := aggs["meta"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Meta)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Meta)
 	}
 	a.Aggregations = aggs
 	return nil
@@ -983,7 +1001,9 @@ func (a *AggregationBucketKeyItems) UnmarshalJSON(data []byte) error {
 		json.Unmarshal(*v, &a.Buckets)
 	}
 	if v, ok := aggs["meta"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Meta)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Meta)
 	}
 	a.Aggregations = aggs
 	return nil
@@ -1008,8 +1028,10 @@ func (a *AggregationBucketKeyItem) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	if v, ok := aggs["key"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Key)
-		json.Unmarshal(*v, &a.KeyNumber)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Key)
+		decode.Decode(&a.KeyNumber)
 	}
 	if v, ok := aggs["key_as_string"]; ok && v != nil {
 		json.Unmarshal(*v, &a.KeyAsString)
@@ -1046,7 +1068,9 @@ func (a *AggregationBucketSignificantTerms) UnmarshalJSON(data []byte) error {
 		json.Unmarshal(*v, &a.Buckets)
 	}
 	if v, ok := aggs["meta"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Meta)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Meta)
 	}
 	a.Aggregations = aggs
 	return nil
@@ -1107,7 +1131,9 @@ func (a *AggregationBucketFilters) UnmarshalJSON(data []byte) error {
 		json.Unmarshal(*v, &a.NamedBuckets)
 	}
 	if v, ok := aggs["meta"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Meta)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Meta)
 	}
 	a.Aggregations = aggs
 	return nil
@@ -1134,7 +1160,9 @@ func (a *AggregationBucketHistogramItems) UnmarshalJSON(data []byte) error {
 		json.Unmarshal(*v, &a.Buckets)
 	}
 	if v, ok := aggs["meta"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Meta)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Meta)
 	}
 	a.Aggregations = aggs
 	return nil
@@ -1193,7 +1221,9 @@ func (a *AggregationPipelineSimpleValue) UnmarshalJSON(data []byte) error {
 		json.Unmarshal(*v, &a.ValueAsString)
 	}
 	if v, ok := aggs["meta"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Meta)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Meta)
 	}
 	a.Aggregations = aggs
 	return nil
@@ -1228,7 +1258,9 @@ func (a *AggregationPipelineBucketMetricValue) UnmarshalJSON(data []byte) error 
 		json.Unmarshal(*v, &a.ValueAsString)
 	}
 	if v, ok := aggs["meta"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Meta)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Meta)
 	}
 	a.Aggregations = aggs
 	return nil
@@ -1267,7 +1299,9 @@ func (a *AggregationPipelineDerivative) UnmarshalJSON(data []byte) error {
 		json.Unmarshal(*v, &a.NormalizedValueAsString)
 	}
 	if v, ok := aggs["meta"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Meta)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Meta)
 	}
 	a.Aggregations = aggs
 	return nil
