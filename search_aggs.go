@@ -1008,8 +1008,10 @@ func (a *AggregationBucketKeyItem) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	if v, ok := aggs["key"]; ok && v != nil {
-		json.Unmarshal(*v, &a.Key)
-		json.Unmarshal(*v, &a.KeyNumber)
+		decode := json.NewDecoder(bytes.NewReader(*v))
+		decode.UseNumber()
+		decode.Decode(&a.Key)
+		decode.Decode(&a.KeyNumber)
 	}
 	if v, ok := aggs["key_as_string"]; ok && v != nil {
 		json.Unmarshal(*v, &a.KeyAsString)
